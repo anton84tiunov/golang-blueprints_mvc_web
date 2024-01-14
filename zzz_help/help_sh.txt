@@ -1,0 +1,5 @@
+./scripts/run_main.sh 
+./scripts/test_1.sh 
+
+  password: jef&%pcVjvmi5@@
+mysql -u go_db -p db_go_test
