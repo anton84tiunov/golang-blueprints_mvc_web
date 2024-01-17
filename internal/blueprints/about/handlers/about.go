@@ -1,12 +1,10 @@
-package about
+package handlers
 
 import (
 	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
-
-	"github.com/gorilla/mux"
 )
 
 func AboutHandler(w http.ResponseWriter, r *http.Request) {
@@ -41,14 +39,4 @@ func AboutHandler(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(response)
 	}
-}
-
-func AboutRoutes() http.Handler {
-	router := mux.NewRouter()
-
-	router.PathPrefix("/about/static/").Handler(http.StripPrefix("/about/static/", http.FileServer(http.Dir("internal/blueprints/about/static"))))
-
-	router.HandleFunc("/about/", AboutHandler)
-	// router.HandleFunc("/", AboutHandler)
-	return router
 }

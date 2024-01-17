@@ -15,6 +15,17 @@ type User struct {
 	Password []byte
 }
 
+type User_json struct {
+	Name      string `json:"Name"`
+	Surname   string `json:"Surname"`
+	Email     string `json:"Email"`
+	Birthday  string `json:"Birthday"`
+	Phone     string `json:"Phone"`
+	Password1 string `json:"Password1"`
+	Password2 string `json:"Password2"`
+	Login     string `json:"Login"`
+}
+
 // func (u User) getAllInfo() string {
 // 	return fmt.Sprintf("user name: %s, age: %d , many: %d", u.Name, u.Age, u.Maney)
 // }

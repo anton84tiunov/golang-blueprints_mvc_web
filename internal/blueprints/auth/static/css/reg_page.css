@@ -1,3 +1,7 @@
 body{
     background-color: rgb(38, 33, 137);
 }
+
+.msg_err{
+    color: rgb(223, 234, 70);
+}

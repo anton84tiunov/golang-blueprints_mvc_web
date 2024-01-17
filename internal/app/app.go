@@ -63,6 +63,9 @@ func Run() {
 	} else {
 		logprint.Print("password is correct")
 	}
+
+	services.SendMessageMail("anton.tiunov.84.07@gmail.com", "test message", "Подтверждение почты")
+
 	server := Srver(conf)
 	fmt.Println(server)
 }

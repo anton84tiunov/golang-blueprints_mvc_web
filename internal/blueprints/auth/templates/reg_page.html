@@ -2,19 +2,93 @@
     <link rel="stylesheet" href="/auth/static/css/reg_page.css">
 {{ end }}
 {{ define "content" }}
-    <div id="form_auth">
+
+    <h3>Зарегистроваться на нашем сайте</h3>
+    <br>
+    <form id="form_auth">
         <table class="table table-dark table-striped">
             <tr>
-                <td>Имя : </td>
-                <td><input type="text" id="name" placeholder="Имя"></td>
+                <td class="align-bottom">
+
+                    <p id="name_label">Имя : </p>
+                </td>
+                <td>
+                    <div class="msg_err" id="name_err"></div>
+                    <input type="text" class="form-control" id="name" placeholder="Имя">
+                </td>
             </tr>
             <tr>
-                <td>Ффмилия : </td>
-                <td><input type="text" id="surname" placeholder="Ффмилия"></td>
+                <td class="align-bottom">
+                    <p id="surname_label">Фамилия : </p>
+                </td>
+                <td>
+                    <div class="msg_err" id="surname_err"></div>
+                    <input type="text" class="form-control" id="surname" placeholder="Фамилия">
+                </td>
             </tr>
-            
+            <tr>
+                <td class="align-bottom">
+                    <p id="birthday_label">Дата рождения : </p>
+                </td>
+                <td>
+                    <div class="msg_err" id="birthday_err"></div>
+                    <input type="date" class="form-control" id="birthday" placeholder="Дата рождения">
+                </td>
+            </tr>
+            <tr>
+                <td class="align-bottom">
+                    <p id="email_label">Почта : </p>
+                </td>
+                <td>
+                    <div class="msg_err" id="email_err"></div>
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                </td>
+            </tr>
+            <tr>
+                <td class="align-bottom">
+                    <p id="phone_label">Номер телефона : </p>
+                </td>
+                <td>
+                    <div class="msg_err" id="phone_err"></div>
+                    <input type="text" class="form-control" id="phone" placeholder="Номер телефона">
+                </td>
+            </tr>
+            <tr>
+                <td class="align-bottom">
+                    <p id="login_label">Логин : </p>
+                </td>
+                <td>
+                    <div class="msg_err" id="login_err"></div>
+                    <input type="text" class="form-control" id="login" placeholder="Логин">
+                </td>
+            </tr>
+            <tr>
+                <td class="align-bottom">
+                    <p id="password1_label">Пароль : </p>
+                </td>
+                <td>
+                    <div class="msg_err" id="password1_err"></div>
+                    <input type="password" class="form-control" id="password1" placeholder="Пароль">
+                </td>
+            </tr>
+            <tr>
+                <td class="align-bottom">
+                    <p id="password2_label">Повторите пароль : </p>
+                </td>
+                <td>
+                    <div class="msg_err" id="password2_err"></div>
+                    <input type="password" class="form-control" id="password2" placeholder="Пароль">
+                </td>
+            </tr>
+            <tr>
+                
+                <td class="align-bottom">
+                    <button type="button" class="btn btn-outline-primary" id="btn_submit_reg">Отправить</button>
+                </td>
+                <td></td>
+            </tr>
         </table>
-    </div>
+    </form>
 {{ end }}
 {{ define "script" }}
     <script src="/auth/static/js/reg_page.js"></script>

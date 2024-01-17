@@ -21,6 +21,12 @@ type Config struct {
 		Password string `yaml:"password"`
 		Dbname   string `yaml:"dbname"`
 	} `yaml:"database"`
+	SmtpServer struct {
+		From     string `yaml:"from"`
+		Password string `yaml:"password"`
+		Host     string `yaml:"host"`
+		Port     int    `yaml:"port"`
+	} `yaml:"smtpServer"`
 }
 
 var GLOBAL_CONFIG Config

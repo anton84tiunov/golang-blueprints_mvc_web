@@ -1,12 +1,10 @@
-package home
+package handlers
 
 import (
 	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
-
-	"github.com/gorilla/mux"
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
@@ -42,15 +40,4 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(response)
 
 	}
-}
-
-func HomeRoutes() http.Handler {
-	router := mux.NewRouter()
-
-	router.PathPrefix("/home/static/").Handler(http.StripPrefix("/home/static/", http.FileServer(http.Dir("internal/blueprints/home/static"))))
-
-	router.HandleFunc("/home/", HomeHandler)
-	router.HandleFunc("/", HomeHandler)
-
-	return router
 }
