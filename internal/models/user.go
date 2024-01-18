@@ -15,6 +15,19 @@ type User struct {
 	Password []byte
 }
 
+type User_errors struct {
+	Id       []string
+	Name     []string
+	Surname  []string
+	Birthday []string
+	Email    []string
+	Phone    []string
+	Login    []string
+	Password []string
+	Counter  int
+	IsEmpty  bool
+}
+
 type User_json struct {
 	Name      string `json:"Name"`
 	Surname   string `json:"Surname"`

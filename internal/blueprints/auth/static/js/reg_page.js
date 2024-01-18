@@ -7,6 +7,9 @@ var password1_inp = document.getElementById("password1");
 var password2_inp = document.getElementById("password2");
 var login_inp = document.getElementById("login");
 var submit_btn = document.getElementById("btn_submit_reg");
+var togglePassword1 = document.querySelector('#togglePassword1');
+var togglePassword2 = document.querySelector('#togglePassword2');
+
 
 var name_err = document.getElementById("name_err");
 var surname_err = document.getElementById("surname_err");
@@ -101,7 +104,7 @@ function isPassword(data, errors, value){
         errors["counter"] += 1;
         errors["isEmpty"] = false;
     }
-    pattern = /(?=.*[@$!%*?&])/;
+    pattern = /[!@#$&*]+/;
     if (!pattern.test(data[value])) {
         errors[value].push("Строка должна содержать хоть один спецсимвол @$!%*?&");
         errors["counter"] += 1;
@@ -121,7 +124,7 @@ function isEmail(data, errors, value){
 }
 
 function isEquality(data, errors, value1, value2) {
-    if (["value1"] != ["value2"]) {
+    if (data[value1] != data[value2]) {
         errors[value2].push("пароли не совпадают");
         errors["counter"] += 1;
         errors["isEmpty"] = false;
@@ -163,39 +166,28 @@ function isValid(data) {
     errors = isEquality(data, errors, "password1", "password2");
     errors = isLatin(data, errors, "login");
   
-    // console.log(errors);
+
     if (!errors["isEmpty"]){ 
         for(const element of msg_err) { 
             element.innerHTML = "";
-            // while (element.firstChild) {
-            //     element.removeChild(element.firstChild);
-            // }
         }
         
         for (const [key, value] of Object.entries(errors)) {
             console.log(`${key}`);
             var teg = document.getElementById(key + "_err");
-            // var str_error_teg = "";
             if (Array.isArray(value)){
                 value.forEach(function(elem) {
                     var p = document.createElement("p");
                     p.textContent = elem;
                     teg.appendChild(p)
-                    // str_error_teg += elem + "\n";
                 });
             }
-            // teg.textContent = str_error_teg;
-            // console.log(str_error_teg);
-           
           }
 
         return false
     }else{
         for(const element of msg_err) { 
             element.innerHTML = "";
-            // while (element.firstChild) {
-            //     element.removeChild(element.firstChild);
-            // }
         }
 
         return true
@@ -230,3 +222,23 @@ function SubmitReg() {
 
 submit_btn.addEventListener('click', SubmitReg);
 
+
+
+
+        togglePassword1.addEventListener('click', () => {
+            const type = password1_inp
+                .getAttribute('type') === 'password' ?
+                'text' : 'password';
+                password1_inp.setAttribute('type', type);
+            // this.classList.toggle('fa-eye');
+            // this.classList.toggle('fa-eye-slash');
+        });
+
+        togglePassword2.addEventListener('click', () => {
+            const type = password2_inp
+                .getAttribute('type') === 'password' ?
+                'text' : 'password';
+                password2_inp.setAttribute('type', type);
+            // this.classList.toggle('fa-eye');
+            // this.classList.toggle('fa-eye-slash');
+        });

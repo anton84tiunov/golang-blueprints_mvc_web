@@ -3,7 +3,6 @@ package app
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/gorilla/mux"
 
@@ -52,8 +51,7 @@ func Run() {
 
 	// fmt.Println(crud_user.IsCreatedTable())
 	fmt.Println(crud_user.CreateTable())
-	err_ins := crud_user.Insert_user("aa", "aa", time.Now(), "<EMAIL>", "1234567", "log", hash_pass)
-	fmt.Println(err_ins)
+
 	usr := crud_user.Select_user("log")
 
 	err = services.CompareHashAndPassword(usr.Password, "passs123@")
