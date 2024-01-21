@@ -20,6 +20,8 @@ var password1_err = document.getElementById("password1_err");
 var password2_err = document.getElementById("password2_err");
 var login_err = document.getElementById("login_err");
 
+var name_result = document.getElementById("name_result");
+
 var msg_err = document.querySelectorAll(".msg_err");
 
 function GetValue() {
@@ -113,7 +115,6 @@ function isPassword(data, errors, value){
     return errors
 }
 function isEmail(data, errors, value){
-    // /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     var pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!pattern.test(data[value])) {
         errors[value].push("неправильная почта");
@@ -132,9 +133,30 @@ function isEquality(data, errors, value1, value2) {
     return errors
 }
 
-
-
-
+function isErrors(errors) {
+    if (!errors["isEmpty"]){ 
+        for(const element of msg_err) { 
+            element.innerHTML = "";
+        }
+        for (const [key, value] of Object.entries(errors)) {
+            console.log(`${key}`);
+            var teg = document.getElementById(key + "_err");
+            if (Array.isArray(value)){
+                value.forEach(function(elem) {
+                    var p = document.createElement("p");
+                    p.textContent = elem;
+                    teg.appendChild(p)
+                });
+            }
+          }
+        return false
+    }else{
+        for(const element of msg_err) { 
+            element.innerHTML = "";
+        }
+        return true
+    }
+}
 
 function isValid(data) {
     var errors = {
@@ -148,6 +170,7 @@ function isValid(data) {
         login: [],
         counter: 0,
         isEmpty: true,
+        isInserted: false,
     }
     errors = minMaxLength(data, errors, "name", 2, 20);
     errors = isLatin(data, errors, "name");
@@ -166,34 +189,9 @@ function isValid(data) {
     errors = isEquality(data, errors, "password1", "password2");
     errors = isLatin(data, errors, "login");
   
-
-    if (!errors["isEmpty"]){ 
-        for(const element of msg_err) { 
-            element.innerHTML = "";
-        }
-        
-        for (const [key, value] of Object.entries(errors)) {
-            console.log(`${key}`);
-            var teg = document.getElementById(key + "_err");
-            if (Array.isArray(value)){
-                value.forEach(function(elem) {
-                    var p = document.createElement("p");
-                    p.textContent = elem;
-                    teg.appendChild(p)
-                });
-            }
-          }
-
-        return false
-    }else{
-        for(const element of msg_err) { 
-            element.innerHTML = "";
-        }
-
-        return true
-    }
+    return isErrors(errors)
+  
 }
-
 
 function sendData(data) {
     fetch('/auth/reg', {
@@ -205,6 +203,7 @@ function sendData(data) {
     })
         .then((response) => response.json())
         .then((data) => {
+            isErrors(data)
             console.log('data:', data);
         })
         .catch((error) => {
@@ -222,23 +221,194 @@ function SubmitReg() {
 
 submit_btn.addEventListener('click', SubmitReg);
 
+togglePassword1.addEventListener('click', () => {
+    const type = password1_inp
+        .getAttribute('type') === 'password' ?
+        'text' : 'password';
+        password1_inp.setAttribute('type', type);
+});
+
+togglePassword2.addEventListener('click', () => {
+    const type = password2_inp
+        .getAttribute('type') === 'password' ?
+        'text' : 'password';
+        password2_inp.setAttribute('type', type);
+});
 
 
+name_inp.addEventListener('input', () => {
+    var data = {
+        name: name_inp.value,
+    }
+    var errors = {
+        name: [],
+        counter: 0,
+        isEmpty: true,
+    }
+    errors = minMaxLength(data, errors, "name", 2, 20);
+    errors = isLatin(data, errors, "name");
+    // var name_err = document.getElementById("name_err");
 
-        togglePassword1.addEventListener('click', () => {
-            const type = password1_inp
-                .getAttribute('type') === 'password' ?
-                'text' : 'password';
-                password1_inp.setAttribute('type', type);
-            // this.classList.toggle('fa-eye');
-            // this.classList.toggle('fa-eye-slash');
+    if(!errors["isEmpty"]){
+        name_err.innerHTML = "";
+        errors["name"].forEach(function(value) {
+            var p = document.createElement("p");
+            p.textContent = value;
+            name_err.appendChild(p)
         });
+    }else{
+        name_err.innerHTML = "";
+    }
+});
 
-        togglePassword2.addEventListener('click', () => {
-            const type = password2_inp
-                .getAttribute('type') === 'password' ?
-                'text' : 'password';
-                password2_inp.setAttribute('type', type);
-            // this.classList.toggle('fa-eye');
-            // this.classList.toggle('fa-eye-slash');
+surname_inp.addEventListener('input', () => {
+    var data = {
+        surname: surname_inp.value,
+    }
+    var errors = {
+        surname: [],
+        counter: 0,
+        isEmpty: true,
+    }
+    errors = minMaxLength(data, errors, "surname", 2, 20);
+    errors = isLatin(data, errors, "surname");
+    // var surname_err = document.getElementById("surname_err");
+
+    if(!errors["isEmpty"]){
+        surname_err.innerHTML = "";
+        errors["surname"].forEach(function(value) {
+            var p = document.createElement("p");
+            p.textContent = value;
+            surname_err.appendChild(p)
         });
+    }else{
+        surname_err.innerHTML = "";
+    }
+});
+
+login_inp.addEventListener('input', () => {
+    var data = {
+        login: login_inp.value,
+    }
+    var errors = {
+        login: [],
+        counter: 0,
+        isEmpty: true,
+    }
+    errors = minMaxLength(data, errors, "login", 2, 20);
+    errors = isLatin(data, errors, "login");
+    // var login_err = document.getElementById("login_err");
+
+    if(!errors["isEmpty"]){
+        login_err.innerHTML = "";
+        errors["login"].forEach(function(value) {
+            var p = document.createElement("p");
+            p.textContent = value;
+            login_err.appendChild(p)
+        });
+    }else{
+        login_err.innerHTML = "";
+    }
+});
+       
+email_inp.addEventListener('input', () => {
+    var data = {
+        email: email_inp.value,
+    }
+    var errors = {
+        email: [],
+        counter: 0,
+        isEmpty: true,
+    }
+    errors = minMaxLength(data, errors, "email", 11, 50);
+    errors = isEmail(data, errors, "email");
+    // var email_err = document.getElementById("email_err");
+
+    if(!errors["isEmpty"]){
+        email_err.innerHTML = "";
+        errors["email"].forEach(function(value) {
+            var p = document.createElement("p");
+            p.textContent = value;
+            email_err.appendChild(p)
+        });
+    }else{
+        email_err.innerHTML = "";
+    }
+});
+
+phone_inp.addEventListener('input', () => {
+    var data = {
+        phone: phone_inp.value,
+    }
+    var errors = {
+        phone: [],
+        counter: 0,
+        isEmpty: true,
+    }
+    errors = minMaxLength(data, errors, "phone", 11, 11);
+    errors = isNumber(data, errors, "phone");
+    // var phone_err = document.getElementById("phone_err");
+
+    if(!errors["isEmpty"]){
+        phone_err.innerHTML = "";
+        errors["phone"].forEach(function(value) {
+            var p = document.createElement("p");
+            p.textContent = value;
+            phone_err.appendChild(p)
+        });
+    }else{
+        phone_err.innerHTML = "";
+    }
+}); 
+
+password1_inp.addEventListener('input', () => {
+    var data = {
+        password1: password1_inp.value,
+    }
+    var errors = {
+        password1: [],
+        counter: 0,
+        isEmpty: true,
+    }
+    errors = minMaxLength(data, errors, "password1", 8, 50);
+    errors = isPassword(data, errors, "password1");
+    // errors = isEquality(data, errors, "password1", "password2");
+    // var password1_err = document.getElementById("password1_err");
+
+    if(!errors["isEmpty"]){
+        password1_err.innerHTML = "";
+        errors["password1"].forEach(function(value) {
+            var p = document.createElement("p");
+            p.textContent = value;
+            password1_err.appendChild(p)
+        });
+    }else{
+        password1_err.innerHTML = "";
+    }
+});
+
+password2_inp.addEventListener('input', () => {
+    var data = {
+        password2: password2_inp.value,
+    }
+    var errors = {
+        password2: [],
+        counter: 0,
+        isEmpty: true,
+    }
+    errors = minMaxLength(data, errors, "password2", 8, 50);
+    errors = isPassword(data, errors, "password2");
+    errors = isEquality(data, errors, "password1", "password2");
+    // var password2_err = document.getElementById("password2_err");
+
+    if(!errors["isEmpty"]){
+        password2_err.innerHTML = "";
+        errors["password2"].forEach(function(value) {
+            var p = document.createElement("p");
+            p.textContent = value;
+            password2_err.appendChild(p)
+        });
+    }else{
+        password2_err.innerHTML = "";
+    }
+}); 

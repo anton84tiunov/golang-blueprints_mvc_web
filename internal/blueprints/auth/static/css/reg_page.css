@@ -6,3 +6,8 @@ body{
     color: rgb(223, 234, 70);
 }
 
+#name_result{
+    width: 20px;
+    height: 20px;
+    background-size: 100% 100%;
+}

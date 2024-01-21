@@ -9,8 +9,10 @@
         <table class="table table-dark table-striped">
             <tr>
                 <td class="align-bottom">
-
-                    <p id="name_label">Имя : </p>
+                    <div class="input-group">
+                        <p id="name_label">Имя : </p>
+                        <div id="name_result"></div>
+                    </div>
                 </td>
                 <td>
                     <div class="msg_err" id="name_err"></div>
@@ -89,9 +91,18 @@
                         <label class="btn btn-outline-primary" id="togglePassword2" for="btn-check-password2"></label>
                     </div>
                 </td>
-            </tr>glyphicon glyphicon-eye-open
+            </tr>
+
             <tr>
-                
+                <td class="align-bottom">
+                    <img src="data:image/png;base64,{{.Buf}}" alt="Blank" class="bg-white"/>
+                </td>
+                <td>
+                    <div class="msg_err" id="сaptcha_err"></div>
+                    <input type="text" class="form-control" id="сaptcha" placeholder="Введите результат">
+                </td>
+            </tr>
+            <tr>
                 <td class="align-bottom">
                     <button type="button" class="btn btn-outline-primary" id="btn_submit_reg">Отправить</button>
                 </td>

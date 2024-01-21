@@ -1,0 +1,23 @@
+ERR:	2024/01/19 20:38:31 logger.go:54: <nil>
+ERR:	2024/01/19 20:38:31 logger.go:54: <nil>
+ERR:	2024/01/20 12:24:14 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: <nil>
+ERR:	2024/01/20 12:24:27 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: <nil>
+ERR:	2024/01/20 12:26:17 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'sssdadd' for key 'users.Login'
+ERR:	2024/01/20 12:26:30 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'sssdadd' for key 'users.Login'
+ERR:	2024/01/20 12:26:57 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: <nil>
+ERR:	2024/01/20 12:35:34 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'sssdaddsss' for key 'users.Login'
+ERR:	2024/01/20 12:35:55 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'sssdaddsss' for key 'users.Login'
+ERR:	2024/01/20 12:36:47 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'sssdaddsss' for key 'users.Login'
+ERR:	2024/01/20 12:38:26 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'sssdaddsss' for key 'users.Login'
+ERR:	2024/01/20 12:42:59 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'sssdaddsss' for key 'users.Login'
+ERR:	2024/01/20 12:43:33 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'sssdaddss' for key 'users.Login'
+ERR:	2024/01/20 12:43:38 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'sssdaddss' for key 'users.Login'
+ERR:	2024/01/20 12:43:59 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'ggggggg' for key 'users.Login'
+ERR:	2024/01/20 12:48:32 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'ggggggg' for key 'users.Login'
+ERR:	2024/01/20 12:49:43 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'ggggggg' for key 'users.Login'
+ERR:	2024/01/20 12:50:06 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'ggggggg' for key 'users.Login'
+ERR:	2024/01/20 12:50:51 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'ggggggg' for key 'users.Login'
+ERR:	2024/01/20 12:53:46 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'ggggggg' for key 'users.Login'
+ERR:	2024/01/20 13:01:04 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'ffffffff' for key 'users.Login'
+ERR:	2024/01/20 13:01:23 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'ffffffffd' for key 'users.Login'
+ERR:	2024/01/20 13:01:27 /home/anton/my_projects/GO/blueprints_mvc_web/internal/services/logger.go:54: Error 1062 (23000): Duplicate entry 'ffffffff' for key 'users.Login'

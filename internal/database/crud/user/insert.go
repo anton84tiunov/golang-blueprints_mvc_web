@@ -20,7 +20,7 @@ func Insert_user(Name string, Surname string, Birthday time.Time, Email string, 
 	insert, err_insert := db.Query(query)
 
 	if err_insert != nil {
-		fmt.Println(err_insert)
+		fmt.Println("err_insert", err_insert)
 		// panic(err_insert)
 		return err_insert
 	}

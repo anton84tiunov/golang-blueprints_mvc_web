@@ -7,8 +7,6 @@ import (
 	"github.com/gorilla/mux"
 
 	config "../../internal/config"
-	services "../../internal/services"
-	logprint "../../pkg/log_print"
 	about "../blueprints/about"
 	auth "../blueprints/auth"
 	home "../blueprints/home"
@@ -41,28 +39,9 @@ func Srver(conf config.Config) error {
 
 func Run() {
 	conf := config.ReadConfig()
-	logprint.Print(conf.Database.Db)
-
-	hash_pass, err := services.Hashing("passs123@")
-	if err != nil {
-		panic(err)
-	}
-	logprint.Print(string(hash_pass))
-
-	// fmt.Println(crud_user.IsCreatedTable())
 	fmt.Println(crud_user.CreateTable())
 
-	usr := crud_user.Select_user("log")
-
-	err = services.CompareHashAndPassword(usr.Password, "passs123@")
-	if err != nil {
-		// panic(err)
-		logprint.Print("password is wrong")
-	} else {
-		logprint.Print("password is correct")
-	}
-
-	services.SendMessageMail("anton.tiunov.84.07@gmail.com", "test message", "Подтверждение почты")
+	// services.SendMessageMail("anton.tiunov.84.07@gmail.com", "test message", "Подтверждение почты")
 
 	server := Srver(conf)
 	fmt.Println(server)

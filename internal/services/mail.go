@@ -15,9 +15,12 @@ func SendMessageMail(to_str string, msg string, title string) {
 	var conf = &tls.Config{ServerName: cfg.SmtpServer.Host}
 	var conn, err = tls.Dial("tcp", fmt.Sprintf("%s:%d", cfg.SmtpServer.Host, cfg.SmtpServer.Port), conf)
 
+	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
+
 	message := "From: " + cfg.SmtpServer.From + "\n" +
 		"To: " + to_str + "\n" +
-		"Subject: " + title + " \n\n" +
+		"Subject: " + title + " \n" +
+		mime +
 		msg
 
 	if err != nil {
@@ -64,4 +67,5 @@ func SendMessageMail(to_str string, msg string, title string) {
 		fmt.Println("err8", err8)
 		return
 	}
+
 }
