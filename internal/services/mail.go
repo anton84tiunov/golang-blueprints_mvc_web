@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/smtp"
 
-	config "../../internal/config"
+	config "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/config"
 )
 
 func SendMessageMail(to_str string, msg string, title string) {

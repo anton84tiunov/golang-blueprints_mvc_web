@@ -95,12 +95,27 @@
 
             <tr>
                 <td class="align-bottom">
+                    <p id="password2_label">код отправленный на почту</p>
+                </td>
+                <td>
+                    <div class="msg_err" id="email_code_err"></div>
+                    <input type="text" class="form-control" id="email_code" placeholder="Введите код">
+                </td>
+            </tr>
+            <tr>
+                <td class="align-bottom">
                     <img src="data:image/png;base64,{{.Buf}}" alt="Blank" class="bg-white"/>
                 </td>
                 <td>
                     <div class="msg_err" id="сaptcha_err"></div>
                     <input type="text" class="form-control" id="сaptcha" placeholder="Введите результат">
                 </td>
+            </tr>
+            <tr>
+                <td class="align-bottom">
+                    <button type="button" class="btn btn-outline-primary" id="btn_check_reg">Проверить</button>
+                </td>
+                <td></td>
             </tr>
             <tr>
                 <td class="align-bottom">

@@ -3,7 +3,7 @@ package auth
 import (
 	"net/http"
 
-	auth_handl "./handlers"
+	auth_handl "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/blueprints/auth/handlers"
 
 	"github.com/gorilla/mux"
 )
@@ -15,6 +15,7 @@ func AuthRoutes() http.Handler {
 
 	router.HandleFunc("/auth/auth", auth_handl.AuthHandler)
 	router.HandleFunc("/auth/reg", auth_handl.RegHandler)
+	router.HandleFunc("/auth/reg_check", auth_handl.RegCheckHandler)
 
 	return router
 }

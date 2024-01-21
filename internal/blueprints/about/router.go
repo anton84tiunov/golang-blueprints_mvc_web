@@ -3,7 +3,7 @@ package about
 import (
 	"net/http"
 
-	about_handl "./handlers"
+	about_handl "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/blueprints/about/handlers"
 
 	"github.com/gorilla/mux"
 )

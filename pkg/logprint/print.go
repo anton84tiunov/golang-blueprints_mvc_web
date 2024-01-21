@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	config "../../internal/config"
+	config "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/config"
 	// "os"
 )
 

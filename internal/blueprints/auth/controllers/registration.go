@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	crud_user "../../../database/crud/user"
-	models "../../../models"
-	services "../../../services"
+	crud_user "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/database/crud/user"
+	models "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/models"
+	services "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/services"
 )
 
 func ParserUser(data map[string]interface{}) (models.User_json, error) {
@@ -384,17 +384,49 @@ func AddUser(data map[string]interface{}) map[string]interface{} {
 					services.L.Warn("преобразование значения map[string]interface{}['login'].(string) в string завершилось неудачно")
 				}
 				errs_valid["login"] = append(str_errs_val, "такой логин уже сущуствуе")
-				int_errs_counter, status_errs_counter := errs_valid["counter"].(int)
-				if !status_errs_counter {
-					services.L.Warn("преобразование значения map[string]interface{}[value].(int) в int завершилось неудачно")
-				}
-				errs_valid["counter"] = int_errs_counter + 1
-				errs_valid["isEmpty"] = false
 			}
+			if strings.Contains(err_ins.Error(), " for key 'users.Email'") {
+				str_errs_val, status_err_val := errs_valid["email"].([]string)
+				if !status_err_val {
+					services.L.Warn("преобразование значения map[string]interface{}['email'].(string) в string завершилось неудачно")
+				}
+				errs_valid["email"] = append(str_errs_val, "к этой почте уже привязан аккаунт")
+			}
+			int_errs_counter, status_errs_counter := errs_valid["counter"].(int)
+			if !status_errs_counter {
+				services.L.Warn("преобразование значения map[string]interface{}[value].(int) в int завершилось неудачно")
+			}
+			errs_valid["counter"] = int_errs_counter + 1
+			errs_valid["isEmpty"] = false
+
 		}
 
 	}
 	// services.L.Warn(data_valid)
 	return errs_valid
+}
 
+func CheckUser(data map[string]interface{}) map[string]interface{} {
+	// var bool_err bool
+	var err error
+	// var data_valid map[string]interface{}
+	errs_valid, bool_err := ValidUser(data)
+	if !bool_err {
+		services.L.Warn("При валидации данных произошла ошибка")
+	}
+	isEmpty, _ := errs_valid["isEmpty"].(bool)
+	user_struct := models.User_json{}
+	fmt.Println("isEmpty", isEmpty)
+
+	user_struct, err = ParserUser(data)
+	if err != nil {
+		services.L.Err(err)
+
+	}
+
+	crud_user.Existes_col_user("Login", user_struct.Login)
+	// fmt.Println("errs_valid", errs_valid)
+
+	// services.L.Warn(data_valid)
+	return errs_valid
 }

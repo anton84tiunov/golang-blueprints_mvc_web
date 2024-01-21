@@ -6,6 +6,7 @@ var phone_inp = document.getElementById("phone");
 var password1_inp = document.getElementById("password1");
 var password2_inp = document.getElementById("password2");
 var login_inp = document.getElementById("login");
+var check_btn = document.getElementById("btn_check_reg");
 var submit_btn = document.getElementById("btn_submit_reg");
 var togglePassword1 = document.querySelector('#togglePassword1');
 var togglePassword2 = document.querySelector('#togglePassword2');
@@ -24,6 +25,11 @@ var name_result = document.getElementById("name_result");
 
 var msg_err = document.querySelectorAll(".msg_err");
 
+
+submit_btn.setAttribute('disabled', '');
+
+// функция получающая значения всех полей
+// возвращает обьект в виде  json
 function GetValue() {
     var name_val = name_inp.value;
     var surname_val = surname_inp.value;
@@ -139,7 +145,6 @@ function isErrors(errors) {
             element.innerHTML = "";
         }
         for (const [key, value] of Object.entries(errors)) {
-            console.log(`${key}`);
             var teg = document.getElementById(key + "_err");
             if (Array.isArray(value)){
                 value.forEach(function(elem) {
@@ -181,13 +186,14 @@ function isValid(data) {
     errors = minMaxLength(data, errors, "birthday", 10, 10);
     errors = minMaxLength(data, errors, "phone", 11, 11);
     errors = isNumber(data, errors, "phone");
+    errors = minMaxLength(data, errors, "login", 2, 20);
+    errors = isLatin(data, errors, "login");
     errors = minMaxLength(data, errors, "password1", 8, 50);
     errors = isPassword(data, errors, "password1");
     errors = minMaxLength(data, errors, "password2", 8, 50);
     errors = isPassword(data, errors, "password2");
-    errors = minMaxLength(data, errors, "login", 2, 20);
     errors = isEquality(data, errors, "password1", "password2");
-    errors = isLatin(data, errors, "login");
+  
   
     return isErrors(errors)
   
@@ -211,13 +217,44 @@ function sendData(data) {
     });
 }
 
+function checkData(data) {
+    fetch('/auth/reg_check', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data), // Convert the object to a JSON string
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            isErrors(data)
+            console.log('data:', data);
+        })
+        .catch((error) => {
+            console.log('Error:', error);
+    });
+}
+
+function CheckReg() {
+    var data = GetValue();
+    if (isValid(data)){
+        checkData(data);
+    }
+    check_btn.setAttribute('disabled', '');
+    submit_btn.removeAttribute('disabled', '');
+}
+check_btn.addEventListener('click', CheckReg);
+
 function SubmitReg() {
     var data = GetValue();
     if (isValid(data)){
         sendData(data);
     }
-    
+    submit_btn.setAttribute('disabled', '');
+    check_btn.removeAttribute('disabled', '');
+
 }
+
 
 submit_btn.addEventListener('click', SubmitReg);
 
@@ -310,6 +347,30 @@ login_inp.addEventListener('input', () => {
         login_err.innerHTML = "";
     }
 });
+
+
+birthday_inp.addEventListener('input', () => {
+    var data = {
+        birthday: birthday_inp.value,
+    }
+    var errors = {
+        lobirthdaygin: [],
+        counter: 0,
+        isEmpty: true,
+    }
+    errors = minMaxLength(data, errors, "birthday", 10, 10);
+
+    if(!errors["isEmpty"]){
+        birthday_err.innerHTML = "";
+        errors["birthday"].forEach(function(value) {
+            var p = document.createElement("p");
+            p.textContent = value;
+            birthday_err.appendChild(p)
+        });
+    }else{
+        birthday_err.innerHTML = "";
+    }
+});
        
 email_inp.addEventListener('input', () => {
     var data = {
@@ -322,7 +383,6 @@ email_inp.addEventListener('input', () => {
     }
     errors = minMaxLength(data, errors, "email", 11, 50);
     errors = isEmail(data, errors, "email");
-    // var email_err = document.getElementById("email_err");
 
     if(!errors["isEmpty"]){
         email_err.innerHTML = "";
@@ -347,7 +407,6 @@ phone_inp.addEventListener('input', () => {
     }
     errors = minMaxLength(data, errors, "phone", 11, 11);
     errors = isNumber(data, errors, "phone");
-    // var phone_err = document.getElementById("phone_err");
 
     if(!errors["isEmpty"]){
         phone_err.innerHTML = "";
@@ -372,8 +431,6 @@ password1_inp.addEventListener('input', () => {
     }
     errors = minMaxLength(data, errors, "password1", 8, 50);
     errors = isPassword(data, errors, "password1");
-    // errors = isEquality(data, errors, "password1", "password2");
-    // var password1_err = document.getElementById("password1_err");
 
     if(!errors["isEmpty"]){
         password1_err.innerHTML = "";
@@ -389,9 +446,11 @@ password1_inp.addEventListener('input', () => {
 
 password2_inp.addEventListener('input', () => {
     var data = {
+        password1: password1_inp.value,
         password2: password2_inp.value,
     }
     var errors = {
+        password1: [],
         password2: [],
         counter: 0,
         isEmpty: true,
@@ -399,7 +458,6 @@ password2_inp.addEventListener('input', () => {
     errors = minMaxLength(data, errors, "password2", 8, 50);
     errors = isPassword(data, errors, "password2");
     errors = isEquality(data, errors, "password1", "password2");
-    // var password2_err = document.getElementById("password2_err");
 
     if(!errors["isEmpty"]){
         password2_err.innerHTML = "";

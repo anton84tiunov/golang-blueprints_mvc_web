@@ -12,7 +12,7 @@ import (
 
 	"github.com/steambap/captcha"
 
-	controllers "../controllers"
+	controllers "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/blueprints/auth/controllers"
 	// auth "../../auth"
 )
 
@@ -66,6 +66,25 @@ func RegHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		msg := controllers.AddUser(formData)
+		// response := map[string]string{msg}
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(msg)
+
+	}
+}
+
+func RegCheckHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		var formData map[string]interface{}
+
+		fmt.Println("POST")
+		// contx := context.Context.Value "qqq", "ppppp")
+		err := json.NewDecoder(r.Body).Decode(&formData)
+		if err != nil {
+			http.Error(w, "Error decoding JSON", http.StatusBadRequest)
+			return
+		}
+		msg := controllers.CheckUser(formData)
 		// response := map[string]string{msg}
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(msg)

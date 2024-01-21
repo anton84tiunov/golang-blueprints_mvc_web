@@ -4,21 +4,24 @@ import (
 	// "database/sql"
 	"fmt"
 
-	connect "../../connect"
+	config "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/config"
+	connect "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/database/connect"
+	services "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/services"
 
-	config "../../../config"
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func IsCreatedTable() bool {
 	db, err := connect.Connect()
 	if err != nil {
+		services.L.Warn(err)
 		return false
 	}
 	defer db.Close()
 	query := fmt.Sprintf("SHOW TABLES FROM %s LIKE 'users';", config.GLOBAL_CONFIG.Database.Dbname)
 	insert, err_iscreate := db.Query(query)
 	if err_iscreate != nil {
+		services.L.Warn(err_iscreate)
 		return false
 	}
 	defer insert.Close()
@@ -28,7 +31,7 @@ func IsCreatedTable() bool {
 func CreateTable() error {
 	db, err := connect.Connect()
 	if err != nil {
-		// panic(err)
+		services.L.Warn(err)
 		return err
 	}
 	defer db.Close()
@@ -39,18 +42,15 @@ func CreateTable() error {
 			"`Name` varchar(20) NOT NULL, " +
 			"`Surname` varchar(20) NOT NULL, " +
 			"`Birthday`  date NOT NULL, " +
-			"`Email` varchar(50)  NOT NULL, " +
+			"`Email` varchar(50) UNIQUE, " +
 			"`Phone`  varchar(15) NOT NULL, " +
-			"`Login` varchar(20), " +
+			"`Login` varchar(20) UNIQUE, " +
 			"`Password` blob NOT NULL, " +
-			"UNIQUE (`Login`), " +
 			"PRIMARY KEY  (`id`)" +
 			" );")
 	create, err_create := db.Query(query)
-	fmt.Println("create", create.NextResultSet())
 	if err_create != nil {
-		fmt.Println("err_create", err_create)
-		panic(err_create)
+		services.L.Warn(err_create)
 	}
 	defer create.Close()
 	return err_create

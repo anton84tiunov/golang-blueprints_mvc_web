@@ -1,10 +1,11 @@
 package config
 
 import (
-	"log"
+	"fmt"
 	"os"
 
 	"gopkg.in/yaml.v3"
+	// services "../services"
 )
 
 type Config struct {
@@ -34,11 +35,13 @@ var GLOBAL_CONFIG Config
 func readYaml(file string, c *Config) {
 	f, err := os.ReadFile(file)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		// services.L.Warn(err)
 	}
 	err = yaml.Unmarshal(f, &c)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		// services.L.Warn(err)
 	}
 
 }

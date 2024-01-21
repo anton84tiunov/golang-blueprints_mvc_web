@@ -4,14 +4,15 @@ import (
 	"fmt"
 	"time"
 
-	connect "../../connect"
+	connect "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/database/connect"
+	services "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/services"
 )
 
 func Insert_user(Name string, Surname string, Birthday time.Time, Email string, Phone string, Login string, Password []byte) error {
 
 	db, err := connect.Connect()
 	if err != nil {
-		// panic(err_con)
+		services.L.Warn(err)
 		return err
 	}
 
@@ -20,8 +21,7 @@ func Insert_user(Name string, Surname string, Birthday time.Time, Email string, 
 	insert, err_insert := db.Query(query)
 
 	if err_insert != nil {
-		fmt.Println("err_insert", err_insert)
-		// panic(err_insert)
+		services.L.Warn(err_insert)
 		return err_insert
 	}
 	defer insert.Close()

@@ -6,11 +6,12 @@ import (
 
 	"github.com/gorilla/mux"
 
-	config "../../internal/config"
-	about "../blueprints/about"
-	auth "../blueprints/auth"
-	home "../blueprints/home"
-	crud_user "../database/crud/user"
+	about "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/blueprints/about"
+	auth "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/blueprints/auth"
+	home "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/blueprints/home"
+	config "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/config"
+	crud_user "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/database/crud/user"
+	services "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/services"
 )
 
 func SetupRoutes() *mux.Router {
@@ -26,23 +27,26 @@ func SetupRoutes() *mux.Router {
 	router.PathPrefix("/").Handler(home.HomeRoutes())
 
 	return router
-
 }
 
 func Srver(conf config.Config) error {
 	router := SetupRoutes()
-
-	// http.Handle("/", router)
 	address := fmt.Sprintf("%s:%d", conf.Server.Host, conf.Server.Port)
+	if conf.Server.Debug {
+		fmt.Printf("server run %s\n", address)
+	}
 	return http.ListenAndServe(address, router)
 }
 
 func Run() {
 	conf := config.ReadConfig()
-	fmt.Println(crud_user.CreateTable())
-
+	isCreate := crud_user.CreateTable()
+	if isCreate != nil {
+		services.L.Warn(isCreate)
+	}
 	// services.SendMessageMail("anton.tiunov.84.07@gmail.com", "test message", "Подтверждение почты")
-
 	server := Srver(conf)
-	fmt.Println(server)
+	if server != nil {
+		services.L.Warn(server)
+	}
 }

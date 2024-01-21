@@ -6,7 +6,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	config "../../config"
+	config "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/config"
 )
 
 func Connect() (*sql.DB, error) {

@@ -3,7 +3,7 @@ package home
 import (
 	"net/http"
 
-	home_handle "./handlers"
+	home_handle "github.com/anton84tiunov/golang-blueprints_mvc_web/internal/blueprints/home/handlers"
 
 	"github.com/gorilla/mux"
 )
